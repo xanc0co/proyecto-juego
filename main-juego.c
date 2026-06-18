@@ -15,6 +15,14 @@ typedef struct {
     int speed;
 } Cube;
 
+/* Estructura para representar el rectángulo */
+typedef struct {
+    int x;
+    int y;
+    int width;
+    int height;
+} Rectangle;
+
 /* Función para generar el mapa en mapa.txt (sin bordes) */
 void generarMapa() {
     FILE* archivo;
@@ -88,6 +96,78 @@ void dibujarCubo(Cube* cubo) {
     );
 }
 
+/* Función para dibujar el rectángulo */
+void dibujarRectangulo(Rectangle* rect) {
+    al_draw_filled_rectangle(
+        rect->x,
+        rect->y,
+        rect->x + rect->width,
+        rect->y + rect->height,
+        al_map_rgb(0, 0, 0)
+    );
+}
+
+/* Función para detectar colisión AABB (Axis-Aligned Bounding Box) */
+int detectarColision(Cube* cubo, Rectangle* rect) {
+    return !(cubo->x + cubo->size < rect->x || 
+             cubo->x > rect->x + rect->width || 
+             cubo->y + cubo->size < rect->y || 
+             cubo->y > rect->y + rect->height);
+}
+
+/* Función para resolver colisión entre cubo y rectángulo */
+void resolverColision(Cube* cubo, Rectangle* rect) {
+    if (!detectarColision(cubo, rect)) {
+        return;
+    }
+    
+    /* Calcular la distancia desde el centro del cubo a cada lado del rectángulo */
+    int cuboCenterX = cubo->x + cubo->size / 2;
+    int cuboCenterY = cubo->y + cubo->size / 2;
+    
+    int distLeft = cuboCenterX - rect->x;
+    int distRight = (rect->x + rect->width) - cuboCenterX;
+    int distTop = cuboCenterY - rect->y;
+    int distBottom = (rect->y + rect->height) - cuboCenterY;
+    
+    /* Encontrar la distancia mínima para determinar de qué lado colisionar */
+    int minDist = distLeft;
+    int lado = 0; /* 0: izq, 1: der, 2: arriba, 3: abajo */
+    
+    if (distRight < minDist) {
+        minDist = distRight;
+        lado = 1;
+    }
+    if (distTop < minDist) {
+        minDist = distTop;
+        lado = 2;
+    }
+    if (distBottom < minDist) {
+        minDist = distBottom;
+        lado = 3;
+    }
+    
+    /* Resolver la colisión empujando el cubo fuera del rectángulo */
+    switch(lado) {
+        case 0: /* Colisión por la izquierda */
+            cubo->x = rect->x - cubo->size;
+            cubo->velocityX = 0;
+            break;
+        case 1: /* Colisión por la derecha */
+            cubo->x = rect->x + rect->width;
+            cubo->velocityX = 0;
+            break;
+        case 2: /* Colisión por arriba */
+            cubo->y = rect->y - cubo->size;
+            cubo->velocityY = 0;
+            break;
+        case 3: /* Colisión por abajo */
+            cubo->y = rect->y + rect->height;
+            cubo->velocityY = 0;
+            break;
+    }
+}
+
 int main(int argc, char **argv) 
 {
     ALLEGRO_DISPLAY* display = NULL;
@@ -96,6 +176,7 @@ int main(int argc, char **argv)
     ALLEGRO_EVENT event;
     ALLEGRO_BITMAP* fondo = NULL;
     Cube miCubo;
+    Rectangle rectangulo;
     int need_redraw = 1;
     int running = 1;
     
@@ -166,6 +247,12 @@ int main(int argc, char **argv)
     miCubo.velocityY = 0;
     miCubo.speed = 5;
     
+    /* Inicializar el rectángulo centrado */
+    rectangulo.width = 150;
+    rectangulo.height = 100;
+    rectangulo.x = (imgWidth - rectangulo.width) / 2;
+    rectangulo.y = (imgHeight - rectangulo.height) / 2;
+    
     printf("Generando mapa...\n");
     generarMapa();
     printf("Iniciando juego...\n");
@@ -223,6 +310,7 @@ int main(int argc, char **argv)
         else if (event.type == ALLEGRO_EVENT_TIMER) {
             need_redraw = 1;
             actualizarCubo(&miCubo, imgWidth, imgHeight);
+            resolverColision(&miCubo, &rectangulo);
         }
         
         if (need_redraw && al_is_event_queue_empty(event_queue)) {
@@ -230,6 +318,9 @@ int main(int argc, char **argv)
             
             /* Dibujar fondo */
             al_draw_bitmap(fondo, 0, 0, 0);
+            
+            /* Dibujar rectángulo */
+            dibujarRectangulo(&rectangulo);
             
             /* Dibujar cubo */
             dibujarCubo(&miCubo);

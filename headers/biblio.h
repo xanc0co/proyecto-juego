@@ -13,8 +13,19 @@
 /* Dimensiones del mapa */
 #define MAP_WIDTH 40
 #define MAP_HEIGHT 10
-
+#define PROYECTIL_H
 /* Estructura que representa al jugador del juego */
+typedef struct {
+    float x, y, ancho, alto;
+    }hitbox;
+    
+    typedef struct {
+    float x,y;
+    int velocidadx, velocidadY;
+    int tamaño;
+    bool activo;
+} Proyectil;
+
 typedef struct {
     int x;
     int y;

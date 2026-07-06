@@ -1,0 +1,17 @@
+=== MAPA DEL JUEGO ===
+Resolucion: Ajustada a la imagen
+Tamaño del Cubo: 20x20
+
+Representacion visual del mapa:
+ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffff
+fffffffffffffffffpffffffffffffffffffffff
+fffffrrrrrrffffrrrrrrffffffrrrrrrfffffff
+fffffrrrrrrffffrrrrrrffffffrrrrrrfffffff
+ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffff
+rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff
+rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff
+rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff            
+rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff

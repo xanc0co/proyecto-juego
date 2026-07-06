@@ -1,4 +1,4 @@
-#include "Escritorio/Carrera/Cursos/tercersemestre/ProgII_2026/proyecto-juego/headers/biblio.h"
+#include "../headers/biblio.h"
 
 void reiniciarJugador(Jugador* jugador, int xInicial, int yInicial, int anchoTile, int altoTile) {
     jugador->x = xInicial * anchoTile + (anchoTile - jugador->tamaño) / 2;

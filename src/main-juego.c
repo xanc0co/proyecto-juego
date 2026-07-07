@@ -8,6 +8,58 @@ void reiniciarJugador(Jugador* jugador, int xInicial, int yInicial, int anchoTil
     jugador->enSuelo = 0;
 }
 
+void inicializarProyectiles(Proyectil proyectiles[], int cantidad) {
+    for (int i = 0; i < cantidad; i++) {
+        proyectiles[i].activo = 0;
+    }
+}
+
+void dispararProyectil(Proyectil proyectiles[], int cantidad, Jugador* jugador) {
+    if (jugador->balas <= 0) {
+        return;
+    }
+
+    for (int i = 0; i < cantidad; i++) {
+        if (!proyectiles[i].activo) {
+            proyectiles[i].x = jugador->x + jugador->tamaño / 2;
+            proyectiles[i].y = jugador->y + jugador->tamaño / 2;
+            proyectiles[i].velocidadX = (jugador->velocidadX < 0) ? -10 : 10;
+            proyectiles[i].velocidadY = 0;
+            proyectiles[i].tamaño = 6;
+            proyectiles[i].activo = 1;
+            proyectiles[i].direccion = (jugador->velocidadX < 0) ? -1 : 1;
+            jugador->balas--;
+            break;
+        }
+    }
+}
+
+void actualizarProyectiles(Proyectil proyectiles[], int cantidad, int anchoPantalla, int altoPantalla) {
+    (void)altoPantalla;
+
+    for (int i = 0; i < cantidad; i++) {
+        if (!proyectiles[i].activo) {
+            continue;
+        }
+
+        proyectiles[i].x += proyectiles[i].velocidadX;
+
+        if (proyectiles[i].x < -50 || proyectiles[i].x > anchoPantalla + 50) {
+            proyectiles[i].activo = 0;
+        }
+    }
+}
+
+void dibujarProyectiles(Proyectil proyectiles[], int cantidad, ALLEGRO_FONT* fuente) {
+    for (int i = 0; i < cantidad; i++) {
+        if (!proyectiles[i].activo) {
+            continue;
+        }
+
+        al_draw_text(fuente, al_map_rgb(255, 255, 255), proyectiles[i].x, proyectiles[i].y, ALLEGRO_ALIGN_LEFT, "~");
+    }
+}
+
 /* Función principal del juego */
 int main(int argc, char **argv) 
 {
@@ -22,6 +74,7 @@ int main(int argc, char **argv)
     int necesita_redibujar = 1;
     int ejecutando = 1;
     ALLEGRO_FONT* fuente = NULL;
+    Proyectil proyectiles[MAX_PROYECTILES];
 
     char mapa[MAP_HEIGHT][MAP_WIDTH]={{0}}; /* Matriz para almacenar el mapa del juego */
     
@@ -123,6 +176,9 @@ int main(int argc, char **argv)
     jugador.gravedad = 1;
     jugador.enSuelo = 0;
     jugador.puedeSaltar = 1;
+    jugador.balasMaximas = 100;
+    jugador.balas = jugador.balasMaximas;
+    inicializarProyectiles(proyectiles, MAX_PROYECTILES);
 
     int inicioEncontrado = 0;
     int inicioX = 0;
@@ -180,6 +236,10 @@ int main(int argc, char **argv)
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 ejecutando = 0;
             }
+            else if (evento.keyboard.keycode == ALLEGRO_KEY_K) {
+                dispararProyectil(proyectiles, MAX_PROYECTILES, &jugador);
+                necesita_redibujar = 1;
+            }
         }
         /* Actualizar lógica del juego cada frame */
         else if (evento.type == ALLEGRO_EVENT_TIMER) {
@@ -202,6 +262,7 @@ int main(int argc, char **argv)
 
             necesita_redibujar = 1;
             actualizarJugador(&jugador, anchoPantalla, altoPantalla);
+            actualizarProyectiles(proyectiles, MAX_PROYECTILES, anchoPantalla, altoPantalla);
             resolverColisionesMapa(&jugador, mapa, anchoTile, altoTile);
             resolverColision(&jugador, &rectangulo);
 
@@ -236,9 +297,12 @@ int main(int argc, char **argv)
             
             /* Dibujar jugador */
             dibujarJugador(&jugador);
-            
-            /* Texto fijo en la esquina superior izquierda; no afecta colisiones */
-            al_draw_text(fuente, al_map_rgb(255, 255, 255), 10, 10, ALLEGRO_ALIGN_LEFT, "Usa las flechas para mover al jugador. ESC para salir (el meo six seven)");
+            dibujarProyectiles(proyectiles, MAX_PROYECTILES, fuente);
+
+            char textoBalas[64];
+            snprintf(textoBalas, sizeof(textoBalas), "Balas: %d", jugador.balas);
+            al_draw_text(fuente, al_map_rgb(255, 255, 255), 10, 10, ALLEGRO_ALIGN_LEFT, textoBalas);
+            al_draw_text(fuente, al_map_rgb(255, 255, 255), 10, 40, ALLEGRO_ALIGN_LEFT, "Usa las flechas para mover al jugador. ESC para salir. K para disparar");
             
             /* Mostrar cambios */
             al_flip_display();

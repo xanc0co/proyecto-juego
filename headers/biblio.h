@@ -13,17 +13,20 @@
 /* Dimensiones del mapa */
 #define MAP_WIDTH 40
 #define MAP_HEIGHT 10
-#define PROYECTIL_H
+#define MAX_PROYECTILES 100
+
 /* Estructura que representa al jugador del juego */
 typedef struct {
     float x, y, ancho, alto;
-    }hitbox;
-    
-    typedef struct {
-    float x,y;
-    int velocidadx, velocidadY;
+} hitbox;
+
+typedef struct {
+    float x, y;
+    int velocidadX;
+    int velocidadY;
     int tamaño;
-    bool activo;
+    int activo;
+    int direccion;
 } Proyectil;
 
 typedef struct {
@@ -36,6 +39,9 @@ typedef struct {
     int gravedad;
     int enSuelo;
     int puedeSaltar;
+    int balas;
+    int balasMaximas;
+    hitbox hitbox;
 } Jugador;
 
 /* Estructura para representar un bloque o plataforma */
@@ -52,6 +58,10 @@ void dibujarMapa(char mapa[MAP_HEIGHT][MAP_WIDTH], int anchoTile, int altoTile);
 void actualizarJugador(Jugador* jugador, int anchoMaximo, int altoMaximo);
 void dibujarJugador(Jugador* jugador);
 void dibujarRectangulo(Rectangulo* rectangulo);
+void inicializarProyectiles(Proyectil proyectiles[], int cantidad);
+void dispararProyectil(Proyectil proyectiles[], int cantidad, Jugador* jugador);
+void actualizarProyectiles(Proyectil proyectiles[], int cantidad, int anchoPantalla, int altoPantalla);
+void dibujarProyectiles(Proyectil proyectiles[], int cantidad, ALLEGRO_FONT* fuente);
 int detectarColision(Jugador* jugador, Rectangulo* rectangulo);
 void resolverColision(Jugador* jugador, Rectangulo* rectangulo);
 void resolverColisionesMapa(Jugador* jugador, char mapa[MAP_HEIGHT][MAP_WIDTH], int anchoTile, int altoTile);

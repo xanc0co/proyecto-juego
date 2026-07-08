@@ -1,17 +1,20 @@
-=== MAPA DEL JUEGO ===
-Resolucion: Ajustada a la imagen
-Tamaño del Cubo: 20x20
-
-Representacion visual del mapa:
-ffffffffffffffffffffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffffffffff
-fffffffffffffffffpffffffffffffffffffffff
-fffffrrrrrrffffrrrrrrffffffrrrrrrfffffff
-fffffrrrrrrffffffffffffffffrrrrrrfffffff
-ffffffffffffffffffffffffffffffffffffffff
-ffffffffffffffffffffffffffffffffffffffff
-rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff
-rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff
-rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff            
-rrrrrrrrffffffrrrrrrrfffffrrrrrrrfffffff
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+Mp●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM●●●●MMMMMMMMMMMMMMMMM
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●$●●●●●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●MMMMMMMMMM●●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M●●●●●●●●●M●●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M●●●●●●●●●●M●●●●●●●●●●●●●●●●●●●M
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●M●●●●●●●●●●●M●●●●●●$●●●●●●●●●●●M
+M●●●●●$●●●●●●●●●●●●●$●●●●●●●●●●●M●●●●●●●●●●●●M●●●●●$●●●●●●●●●●●M
+MMMMMMMMMMM●●●●MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+M●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+M●●●●●●●●●●●●$●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM●●●●●●●MMMMMMMMMMM
